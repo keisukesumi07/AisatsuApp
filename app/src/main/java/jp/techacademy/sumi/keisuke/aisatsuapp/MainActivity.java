@@ -16,6 +16,10 @@ import android.widget.TimePicker;
 public class MainActivity extends AppCompatActivity{
     Handler mHandler;
     TextView textView;
+    int s_morning=2,e_morning=10,s_noon=10,e_noon=18,s_evening=18,e_evening=2;
+    int defaluthour=13,defaltminuite=0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,24 +51,20 @@ public class MainActivity extends AppCompatActivity{
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, final int hourOfDay, final int minute) {
-                        mHandler = new Handler(Looper.getMainLooper());
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(hourOfDay >=2 && 10 > hourOfDay){
-                                    textView.setText("おはよう");
-                                }else if(hourOfDay>=10&&hourOfDay<18){
-                                    textView.setText("こんにちわ");
-                                }else if(hourOfDay>=18&&hourOfDay<2){
-                                    textView.setText("こんばんは");
-                                }
 
-                            }
-                        });
+
+
+                        if(hourOfDay >=s_morning && 10 > e_morning){
+                            textView.setText("おはよう");
+                        }else if(hourOfDay>=s_noon&&hourOfDay<e_noon){
+                            textView.setText("こんにちわ");
+                        }else if(hourOfDay>=s_evening&&hourOfDay<e_evening){
+                            textView.setText("こんばんは");
+                        }
                     }
                 },
-                13, // 初期値（時間）
-                0,  // 初期値（分）
+                defaluthour, // 初期値（時間）
+                defaltminuite,  // 初期値（分）
                 true);
         timePickerDialog.show();
     }
